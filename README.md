@@ -1,4 +1,4 @@
-# OmniAuth::SSO
+# OmniAuth::KeycloakOpenID
 
 This is a custom [OmniAuth](https://github.com/omniauth/omniauth) "provider" gem, which authenticates a user via keycloak OIDC protocol.
 
@@ -16,11 +16,19 @@ And then execute:
     $ bundle
 ```
 
-Or install it yourself as:
+Or directly install and add to Gemfile it yourself as:
 
 ```
-    $ gem install omniauth-keycloak-openid
+    $ bundle add omniauth-keycloak-openid
 ```
+
+In omniauth.rb file
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :keycloak_openid, ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], scope: "openid profile email", redirect_uri: 'http://localhost:3000/auth/keycloak_openid/callback'
+end
+```
+
 
 ## License
 

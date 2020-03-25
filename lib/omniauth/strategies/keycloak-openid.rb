@@ -32,12 +32,6 @@ module OmniAuth
         prune!({'raw_info' => raw_info})
       end
 
-      def request_phase
-        authorization_url = client.auth_code.authorize_url({:redirect_uri => callback_url}.merge(authorize_params))
-        Rails.logger.warn authorization_url
-        ApplicationController.render json: {authorization_url: client.auth_code.authorize_url({:redirect_uri => callback_url}.merge(authorize_params))}
-      end
-
       def callback_url
         options[:redirect_uri] || (full_host + script_name + callback_path)
       end
